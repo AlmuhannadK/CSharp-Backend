@@ -25,7 +25,7 @@ builder.Services.AddControllers();
 // builder.Services.AddDbContext<DatabaseContext>();
 builder.Services.AddAutoMapper(typeof(Program).Assembly);
 
-// configuring DB
+// configuring DB (moved from dbcontext)
 var _config = builder.Configuration;
 var dataSourceBuilder = new NpgsqlDataSourceBuilder(_config["DB"]);
 dataSourceBuilder.MapEnum<Role>();
@@ -91,13 +91,9 @@ builder.Services.AddCors(options =>
                       {
                           policy.WithOrigins(builder.Configuration["Cors:Origin"]!)
                           .AllowAnyHeader()
-                            .AllowAnyMethod(); ;
+                          .AllowAnyMethod();
                       });
 });
-
-
-
-
 
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
